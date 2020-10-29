@@ -4,7 +4,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { OrderComponent } from './orders/order/order.component';
 
 const routes: Routes = [
-  // {path: '', pathMatch: 'full', redirectTo: 'order'},
+  {path: '', pathMatch: 'full', redirectTo: 'order'},
   { path: 'orders', component: OrdersComponent },
   {
     path: 'order', component: OrderComponent, children: [

@@ -62,6 +62,7 @@
                 <td>{{item.Total}}</td>
                 <td>
                     <a class="btn btn-sm btn-info text-white" (click)="AddOrEditOrderItem(i, orderService.formData.OrderID)"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteOrderItem(item.OrderID,i)"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>
         </tbody>
