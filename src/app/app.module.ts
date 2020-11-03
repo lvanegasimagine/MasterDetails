@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderComponent } from './orders/order/order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     MatDialogModule
   ],
   entryComponents: [OrderItemsComponent],
