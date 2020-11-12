@@ -4,4 +4,6 @@ export class Order {
    CustomerID: number;
    PMethod: string;
    GTotal: number;
+   //Integracion Nueva
+   DeleteOrderItemIDs: string;
 }

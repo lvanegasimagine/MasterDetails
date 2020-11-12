@@ -10,11 +10,14 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of orderList">
-            <th>{{item.OrderNo}}</th>
-            <td>{{item.Customer}}</td>
-            <td>{{item.PMethod}}</td>
-            <td>{{item.GTotal}}</td>
-            <td></td>
+            <th (click)="openForEdit(item.OrderID)">{{item.OrderNo}}</th>
+            <td (click)="openForEdit(item.OrderID)">{{item.Customer}}</td>
+            <td (click)="openForEdit(item.OrderID)">{{item.PMethod}}</td>
+            <td (click)="openForEdit(item.OrderID)">{{item.GTotal}}</td>
+            <td>
+                <a class="btn text-danger" (click)="onOrderDelete(item.OrderID)"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+
+            </td>
         </tr>
     </tbody>
 </table>

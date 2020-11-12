@@ -21,11 +21,15 @@ export class OrderService {
     return this.http.post(environment.apiURL + '/Order', body);
   }
 
-  // getList(id: number) {
-  //   return this.http.delete(environment.apiURL + '/Order/' + id).toPromise();
-  // }
-
   getOrderList() {
     return this.http.get(environment.apiURL + '/Order').toPromise();
+  }
+
+  getOrderByID(id: number): any {
+    return this.http.get(environment.apiURL + '/Order/' + id).toPromise();
+  }
+
+  deleteOrder(id: number) {
+    return this.http.delete(environment.apiURL + '/Order/' + id).toPromise();
   }
 }

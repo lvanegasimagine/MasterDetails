@@ -6,7 +6,7 @@ import { OrderItemsComponent } from '../order-items/order-items.component';
 import { CustomerService } from '../../shared/customer.service';
 import { Customer } from '../../shared/customer.model';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -17,13 +17,20 @@ export class OrderComponent implements OnInit {
   isValid = true;
 
   constructor(public orderService: OrderService, private dialog: MatDialog, private customerService: CustomerService,
-              private toastr: ToastrService, private router: Router) { }
+              private toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.resetForm();
-    this.customerService.getCustomerList().then(resp => {
-      this.customerList = resp as Customer[];
-    }).catch(error => console.log(error));
+    let orderID = this.activatedRoute.snapshot.paramMap.get('id');
+    if (orderID === null) {
+      this.resetForm();
+    } else {
+      this.orderService.getOrderByID(parseInt(orderID)).then(resp => {
+        this.orderService.formData = resp.order;
+        this.orderService.orderItems = resp.orderDetails;
+      });
+    }
+    this.customerService.getCustomerList().then(resp => this.customerList = resp as Customer[]
+    ).catch(error => console.log(error));
   }
 
   resetForm(form?: NgForm) {
@@ -35,7 +42,8 @@ export class OrderComponent implements OnInit {
       OrderNo: Math.floor(100000 + Math.random() * 900000).toString(),
       CustomerID: 0,
       PMethod: '',
-      GTotal: 0
+      GTotal: 0,
+      DeleteOrderItemIDs: ''
     };
     this.orderService.orderItems = [];
   }
@@ -55,8 +63,13 @@ export class OrderComponent implements OnInit {
 
   ///TODO Eliminar el item del arreglo
   onDeleteOrderItem(OrderItemID: number, i: number) {
-    this.orderService.orderItems.splice(i, 1);
-    this.updateGrandTotal();
+    if (OrderItemID !== null) {
+      this.orderService.formData.DeleteOrderItemIDs += OrderItemID + ",";
+    }
+    else {
+      this.orderService.orderItems.splice(i, 1);
+      this.updateGrandTotal();
+    }
   }
 
   ///TODO Actualiza el Total Global por cada compra que ingresemos
